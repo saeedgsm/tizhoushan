@@ -1,0 +1,32 @@
+body{
+    background-color: #CFD8DC;
+    font-family: Vazir;
+}
+
+option{
+    font-family: Vazir !important;
+}
+
+
+.icons-large {
+    font-size: -webkit-xxx-large;
+}
+
+.custom-field-check{
+    width: 2em;
+}
+
+.vgt-left-align {
+    text-align: center !important;
+}
+
+ .vgt-wrap__footer .footer__row-count::after {
+     left: 6px !important;
+
+ }
+
+ .table-responsive {
+     white-space: nowrap;
+ }
+
+

@@ -1,0 +1,90 @@
+@font-face {
+    font-family: 'iran-sans';
+    src: url('../fonts/iran-sans/woff/IRANSansWeb.woff') format('woff');
+}
+body{
+    font-family: iran-sans;
+}
+.span_pseudo, .chiller_cb span:before, .chiller_cb span:after {
+    content: "";
+    display: inline-block;
+    background: #fff;
+    width: 0;
+    height: 0.2rem;
+    position: absolute;
+    transform-origin: 0% 0%;
+}
+
+.chiller_cb {
+    position: relative;
+    height: 2rem;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+.chiller_cb input {
+    display: none;
+}
+.chiller_cb input:checked ~ span {
+    background: #fd8110;
+    border-color:  #fd8110;
+}
+.chiller_cb input:checked ~ span:before {
+    width: 1rem;
+    height: 0.15rem;
+    transition: width 0.1s;
+    transition-delay: 0.3s;
+}
+.chiller_cb input:checked ~ span:after {
+    width: 0.4rem;
+    height: 0.15rem;
+    transition: width 0.1s;
+    transition-delay: 0.2s;
+}
+.chiller_cb input:disabled ~ span {
+
+}
+.chiller_cb input:disabled ~ label {
+    color: #dcdcdc;
+}
+.chiller_cb input:disabled ~ label:hover {
+    cursor: default;
+}
+.chiller_cb label {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    padding-right: 25px;
+}
+.chiller_cb span {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #ccc;
+    position: absolute;
+    transition: all 0.2s;
+    z-index: 1;
+    box-sizing: content-box;
+    background-color: white;
+}
+.chiller_cb span:before {
+    transform: rotate(-55deg);
+    top: 0.8rem;
+    left: 0.27rem;
+}
+.chiller_cb span:after {
+    transform: rotate(35deg);
+    bottom: 0.3rem;
+    left: 0.14rem;
+}
+.pdfobject-container { height: 30rem; border: 1rem solid rgba(0,0,0,.1); }
+
+#overflowTest {
+    color: white;
+    padding: 3px;
+    width: 100%;
+    height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+    border: 1rem solid rgba(0,0,0,.1);
+}

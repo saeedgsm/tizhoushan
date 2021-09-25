@@ -1,0 +1,294 @@
+@font-face {
+    font-family: 'iran-sans';
+    src: url('../fonts/iran-sans/woff/IRANSansWeb.woff') format('woff');
+}
+
+body {
+    font-family: iran-sans;
+    direction: rtl;
+    background-color: white;
+    color: #434343;
+    font-size: 90%;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.font-md {
+    font-size: 15px;
+}
+
+.font-m {
+    font-size: 14px;
+}
+
+.font-s {
+    font-size: 13px;
+}
+
+.btn-outline-pink {
+    background-color: white;
+    border: 3px solid #e8009a;
+    border-radius: 50px;
+    font-size: 20px;
+}
+
+.box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    align-items: center;
+    align-content: stretch;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #434343;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 1px solid #434343;
+}
+
+.table-bordered {
+    text-align: center;
+}
+
+.bor-percent {
+    border: 1px solid #434343;
+    height: 200px;
+}
+
+.Percent-height {
+    height: 65px;
+}
+
+.span_pseudo,
+.chiller_cb span:before,
+.chiller_cb span:after {
+    content: "";
+    display: inline-block;
+    background: #fff;
+    width: 0;
+    height: 0.2rem;
+    position: absolute;
+    transform-origin: 0% 0%;
+}
+
+.chiller_cb {
+    position: relative;
+    height: 2rem;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+
+.chiller_cb input {
+    display: none;
+}
+
+.chiller_cb input.green:checked:disabled~span {
+    background: #25ff0d !important;
+    border-color: #25ff0d !important;
+}
+
+.chiller_cb input.red:checked:disabled~span {
+    background: #ff2c05 !important;
+    border-color: #ff2a02 !important;
+}
+
+.chiller_cb input:disabled~span {
+    background: #ffffff !important;
+    border-color: #dcdcdc;
+}
+
+.chiller_cb input:checked~span:before {
+    width: 1rem;
+    height: 0.15rem;
+    transition: width 0.1s;
+    transition-delay: 0.3s;
+}
+
+.chiller_cb input:checked~span:after {
+    width: 0.4rem;
+    height: 0.15rem;
+    transition: width 0.1s;
+    transition-delay: 0.2s;
+}
+
+.chiller_cb input:disabled~span {
+    background: #ececec;
+    border-color: #dcdcdc;
+}
+
+.chiller_cb input:disabled~label {
+    color: #dcdcdc;
+}
+
+.chiller_cb input:disabled~label:hover {
+    cursor: default;
+}
+
+.chiller_cb label {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    padding-left: 25px;
+}
+
+.chiller_cb span {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #ccc;
+    position: absolute;
+    transition: all 0.2s;
+    z-index: 1;
+    box-sizing: content-box;
+    background-color: white;
+}
+
+.chiller_cb span:before {
+    transform: rotate(-55deg);
+    top: 0.8rem;
+    left: 0.27rem;
+}
+
+.chiller_cb span:after {
+    transform: rotate(35deg);
+    bottom: 0.3rem;
+    left: 0.14rem;
+}
+
+.chiller_cb span.green {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid #ccc;
+    position: absolute;
+    transition: all 0.2s;
+    z-index: 1;
+    box-sizing: content-box;
+    background-color: #25ff0d;
+}
+
+.chiller_cb span.red {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid #ccc;
+    position: absolute;
+    transition: all 0.2s;
+    z-index: 1;
+    box-sizing: content-box;
+    background-color: #ff0a1e;
+}
+
+.col {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.box {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-left: 15px;
+    align-content: stretch;
+}
+
+.number {
+    width: 15px;
+}
+
+
+
+
+.check-number {
+    margin-top: 3px;
+    font-size: 18px;
+}
+
+.cols {
+    width: 20px;
+    margin-bottom: -6px;
+}
+
+.cols-number {
+    width: 33px;
+    margin-bottom: -6px;
+}
+
+
+
+
+.is-correct-check::before {
+    color: #000;
+    content: '\f058';
+    /* You should use \ and not /*/
+    font-family: "Font Awesome 5 Free";
+    /* This is the correct font-family*/
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    width: 20px;
+}
+
+.is-empty-check {
+    color: #000;
+    border: 2px solid;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+}
+
+.is-false-checked {
+    color: #000;
+    border: 2px solid;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    background-color: #000;
+}
+
+.is-correct-checked::before {
+    color: #fff;
+    content: '\f058';
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-weight: normal;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    font-size: 20px;
+    width: 20px;
+    background-color: #25ff0d;
+}
+
+.height-space {
+    margin-bottom: 30px;
+}
+
+.col-check-list {
+    flex: 0 0 auto;
+    width: 25%;
+}

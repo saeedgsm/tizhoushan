@@ -1,0 +1,81 @@
+body {
+    font-family: Vazir, serif !important;
+}
+
+.ex-time {
+    /* text-align: center; */
+    border: 5px solid #004853;
+    display: inline;
+    padding: 5px;
+    color: #004853;
+    font-family: Verdana, sans-serif, Arial;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    position: fixed;
+    z-index: 1;
+}
+
+.table td, .table th {
+    padding: .10rem;
+    vertical-align: top;
+    border-top: 1px solid #eff2f7;
+}
+
+.pdfobject-container {
+    height: 30rem;
+    border: 1rem solid rgba(0, 0, 0, .1);
+}
+
+.base-timer {
+    position: relative;
+    width: 62px;
+    height: 62px;
+}
+
+.base-timer__svg {
+    transform: scaleX(-1);
+}
+
+.base-timer__circle {
+    fill: none;
+    stroke: none;
+}
+
+.base-timer__path-elapsed {
+    stroke-width: 7px;
+    stroke: grey;
+}
+
+.base-timer__path-remaining {
+    stroke-width: 7px;
+    stroke-linecap: round;
+    transform: rotate(90deg);
+    transform-origin: center;
+    transition: 1s linear all;
+    fill-rule: nonzero;
+    stroke: currentColor;
+}
+
+.base-timer__path-remaining.green {
+    color: rgb(65, 184, 131);
+}
+
+.base-timer__path-remaining.orange {
+    color: orange;
+}
+
+.base-timer__path-remaining.red {
+    color: red;
+}
+
+.base-timer__label {
+    position: absolute;
+    width: 62px;
+    height: 62px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}

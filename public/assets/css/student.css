@@ -1,0 +1,23 @@
+#page-topbar {
+    background-color: #ff5722 !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.page-title-box {
+
+    background-color: #ff784e !important;
+
+}
+
+body[data-topbar="colored"] .dropdown.show .header-item {
+    background-color: #ff5722 !important;
+}
+
+.nav-link{
+    color: white !important;
+}
+
+.topnav{
+    background-color: #ff5722 !important;
+}
