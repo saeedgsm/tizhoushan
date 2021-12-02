@@ -79,29 +79,32 @@ trait OptionTrait
             'birthdate',
             'hamgam_code',];
 
+        $cols=[];
         $custom = CustomField::query()->where('table_task', 'edit_student_info')->first();
         if (!empty($custom)) {
             $colsDef = $custom->field_list;
             $cols = $this->exportArray($colsDef);
+            foreach ($user_fields as $user_field){
+                if($cols[$user_field] == 1){
+                    $checkVal = $user[$user_field] == null;
+                    if ($checkVal == true){
+                        return $checkVal;
+                    }
+                }
+            }
+            foreach ($student_fields as $student_field){
+                if($cols[$student_field] == 1){
+                    $checkVal = $user->student[$student_field] == null;
+                    if ($checkVal == true){
+                        return $checkVal;
+                    }
+                }
+            }
+            return false;
         }
 
-        foreach ($user_fields as $user_field){
-            if($cols[$user_field] == 1){
-                $checkVal = $user[$user_field] == null;
-                if ($checkVal == true){
-                    return $checkVal;
-                }
-            }
-        }
-        foreach ($student_fields as $student_field){
-            if($cols[$student_field] == 1){
-                $checkVal = $user->student[$student_field] == null;
-                if ($checkVal == true){
-                    return $checkVal;
-                }
-            }
-        }
-        return false;
+      // if (!empty($cols))
+
     }
 
     public function paginate($items, $perPage = 10, $page = null, $options = [])
