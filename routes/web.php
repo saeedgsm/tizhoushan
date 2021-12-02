@@ -150,7 +150,6 @@ Route::get('/welcome', function () {
         ]);
     }*/
     //$oCount = $oldClasses->count();
-
    // $users = \App\User::all();
 //$row=4;
     //return view('welcome');
