@@ -31,8 +31,6 @@ Route::get('/product/{product}','Site\ProductController@show')->name('site.produ
 Route::get('shop-cart','Site\ShopCartController@index')->name('site.shop.carts.index');
 
 Route::get('/welcome', function () {
-
-
     /*$users = \App\User::all();
     $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
     $charactersLength = strlen($characters);
@@ -52,7 +50,6 @@ Route::get('/welcome', function () {
         $user->update(['private_code'=>$randomString]);
 
     }*/
-
     \App\User::create([
         'level'=>'admin',
         'email'=>'admin@admin.com',
@@ -62,7 +59,6 @@ Route::get('/welcome', function () {
     ]);
 
    // $oldClasses = \Illuminate\Support\Facades\DB::table('classes')->orderBy('id','asc')->get();
-
     /*foreach ($oldClasses as $class){
 
         $newClass = \App\EducationalClass::create([
@@ -115,7 +111,6 @@ Route::get('/welcome', function () {
             }
         }
     }*/
-
     /*$stOld2 = \Illuminate\Support\Facades\DB::table('old_users')
         ->orderBy('id','asc')
         ->whereNotNull('usercode')
@@ -154,13 +149,10 @@ Route::get('/welcome', function () {
             //'class_id'=>
         ]);
     }*/
-
-
     //$oCount = $oldClasses->count();
 
    // $users = \App\User::all();
 //$row=4;
-
     //return view('welcome');
 })->name('home.index');
 
