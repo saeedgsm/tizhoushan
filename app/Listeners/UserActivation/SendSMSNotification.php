@@ -32,6 +32,6 @@ class SendSMSNotification
      */
     public function handle(UserActivation $event)
     {
-       Smsirlaravel::ultraFastSend(['VerificationCode'=>$event->activationCode],41093,$event->user->phone);
+      // Smsirlaravel::ultraFastSend(['VerificationCode'=>$event->activationCode],41093,$event->user->phone);
     }
 }

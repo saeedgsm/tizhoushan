@@ -29,10 +29,10 @@ class SendSMSCompleteInfo
     {
         $fullname = $event->user->first_name . ' ' . $event->user->last_name;
 
-        Smsirlaravel::ultraFastSend([
+       /* Smsirlaravel::ultraFastSend([
             'fullname'=>$fullname,
             'username'=>$event->user->usercode,
             'pass'=>$event->user->userpass,
-            ],47663,$event->user->phone);
+            ],47663,$event->user->phone);*/
     }
 }

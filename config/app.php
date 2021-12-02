@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        Ipecompany\Smsirlaravel\SmsirlaravelServiceProvider::class,
+       // Ipecompany\Smsirlaravel\SmsirlaravelServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
 
         /*
@@ -231,7 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Verta' => Hekmatinasser\Verta\Verta::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Smsirlaravel' => Ipecompany\Smsirlaravel\SmsirlaravelFacade::class,
+      //  'Smsirlaravel' => Ipecompany\Smsirlaravel\SmsirlaravelFacade::class,
     ],
 
 ];
