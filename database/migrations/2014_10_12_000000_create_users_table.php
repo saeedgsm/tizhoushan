@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('private_code')->nullable();
             $table->tinyInteger('block')->default(0);
             $table->tinyInteger('active')->default(0);
             $table->string('level')->default('user');
@@ -34,6 +35,17 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+        \Illuminate\Support\Facades\DB::table('users')->insert([
+            [
+                'level'=>'admin',
+                'email'=>'admin@admin.com',
+                'first_name'=>'saeed',
+                'last_name'=>'gsm',
+                'password'=>bcrypt('11111111'),
+                'created_at'=>\Carbon\Carbon::now(),
+                'updated_at'=>\Carbon\Carbon::now(),
+            ]
+        ]);
     }
 
     /**

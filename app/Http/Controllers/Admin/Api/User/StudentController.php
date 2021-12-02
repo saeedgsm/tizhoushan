@@ -29,6 +29,7 @@ class StudentController extends Controller
        // $users = User::query()->where('level', 'student')->whereDate('created_at', '>', $subMonth)->latest()->get();
         $users = User::query()->where('level', 'student')->latest()->get();
        // $public_header_columns=$this->publicHeaders();
+        $students=[];
         if ($users->isNotEmpty()) {
             foreach ($users as $student) {
                 $name_family = $student->first_name . " " . $student->last_name;

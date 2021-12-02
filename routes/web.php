@@ -30,9 +30,7 @@ Route::get('/product/{product}','Site\ProductController@show')->name('site.produ
 
 Route::get('shop-cart','Site\ShopCartController@index')->name('site.shop.carts.index');
 
-//Route::get('/welcome', function () {
-
-
+Route::get('/welcome', function () {
     /*$users = \App\User::all();
     $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
     $charactersLength = strlen($characters);
@@ -52,17 +50,15 @@ Route::get('shop-cart','Site\ShopCartController@index')->name('site.shop.carts.i
         $user->update(['private_code'=>$randomString]);
 
     }*/
-
-    /*\App\User::create([
+    \App\User::create([
         'level'=>'admin',
         'email'=>'admin@admin.com',
         'first_name'=>'saeed',
         'last_name'=>'gsm',
         'password'=>bcrypt('11111111'),
-    ]);*/
+    ]);
 
    // $oldClasses = \Illuminate\Support\Facades\DB::table('classes')->orderBy('id','asc')->get();
-
     /*foreach ($oldClasses as $class){
 
         $newClass = \App\EducationalClass::create([
@@ -115,7 +111,6 @@ Route::get('shop-cart','Site\ShopCartController@index')->name('site.shop.carts.i
             }
         }
     }*/
-
     /*$stOld2 = \Illuminate\Support\Facades\DB::table('old_users')
         ->orderBy('id','asc')
         ->whereNotNull('usercode')
@@ -154,15 +149,11 @@ Route::get('shop-cart','Site\ShopCartController@index')->name('site.shop.carts.i
             //'class_id'=>
         ]);
     }*/
-
-
     //$oCount = $oldClasses->count();
-
    // $users = \App\User::all();
 //$row=4;
-
     //return view('welcome');
-//})->name('home.index');
+})->name('home.index');
 
 route::get('check/acc/pp','CheckAccountController@copy')->name('check.account.copy');
 route::get('check/acc','CheckAccountController@check')->name('check.account');
