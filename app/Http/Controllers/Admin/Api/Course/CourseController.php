@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin\Api\Course;
 
 use App\Course;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Course\CourseRequest;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -16,7 +17,7 @@ class CourseController extends Controller
         return response()->json($courses);
     }
 
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
         Course::create($request->all());
         return 'success';

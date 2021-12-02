@@ -1,8 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\ActiveAccountCode;
+use App\AzmoonPayment;
+use App\InfoCadre;
+use App\InfoStudent;
+use App\RegisterClassStudent;
+use App\ShopCart;
+use App\TeacherCourse;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
