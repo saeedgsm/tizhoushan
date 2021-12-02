@@ -87,7 +87,7 @@ export default {
   data() {
     return {
       'course_title': '',
-      'status': '',
+      'status': 0,
     }
   },
   methods: {

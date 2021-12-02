@@ -16,5 +16,4 @@ const mix = require('laravel-mix');
 //mix.js('resources/js/app.js','public/js/vue.js');
 // prod
 mix.js('resources/js/app.js','public/js/v0.1.122/vue.js');
-mix.js('resources/js/student.js','public/js/v0.0.1/student.js');
 
