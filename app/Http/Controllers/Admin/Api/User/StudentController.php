@@ -13,7 +13,7 @@ use App\TariffBasePayment;
 use App\Traits\CustomFields;
 use App\Traits\OptionTrait;
 use App\Traits\UploaderFile;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;

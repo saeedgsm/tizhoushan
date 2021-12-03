@@ -11,7 +11,7 @@ use App\Providers\RouteServiceProvider;
 use App\SmsTool;
 use App\Traits\OptionTrait;
 use App\Traits\RegistrationFeeTrait;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;

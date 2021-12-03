@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
 use App\Traits\OptionTrait;
-use App\User;
 use Illuminate\Http\Request;
 
 class LoaderController extends Controller

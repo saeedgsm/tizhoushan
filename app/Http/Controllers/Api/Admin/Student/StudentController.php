@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\Admin\Student;
 
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 
 class StudentController extends Controller
 {

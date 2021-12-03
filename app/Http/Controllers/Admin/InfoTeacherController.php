@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TeacherRequest;
 use App\InfoStudent;
 use App\InfoTeacher;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class InfoTeacherController extends Controller

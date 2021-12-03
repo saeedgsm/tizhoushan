@@ -7,7 +7,7 @@ use App\Events\UserActivation;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Traits\CustomFields;
-use App\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;

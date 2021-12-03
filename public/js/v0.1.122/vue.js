@@ -6798,7 +6798,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       'course_title': '',
-      'status': false
+      'status': 0
     };
   },
   methods: {
@@ -7099,8 +7099,9 @@ __webpack_require__.r(__webpack_exports__);
     getCourses: function getCourses() {
       var _this = this;
 
-      Vue.http.get('api/admin/courses').then(function (response) {
-        _this.courses = response.data;
+      Vue.http.get('api/dashboard/courses').then(function (response) {
+        console.log(response);
+        _this.courses = response.data.courses;
       })["catch"](function (error) {
         console.log(error);
       });

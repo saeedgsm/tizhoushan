@@ -7,7 +7,7 @@ use App\Http\Requests\TeacherRequest;
 use App\InfoCadre;
 use App\InfoTeacher;
 use App\Traits\OptionTrait;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
