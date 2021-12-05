@@ -17,7 +17,7 @@ route::get('student/profile/unchecked', 'InfoStudentController@uncheckedProfiles
 route::get('student/profile/submit/{student}', 'InfoStudentController@submitProfiles')->name('student.profile.submit');
 
 // students
-route::resource('classStudents', 'ClassStudentController');
+//route::resource('classStudents', 'ClassStudentController');
 
 // teachers
 route::resource('teachers', 'InfoTeacherController');

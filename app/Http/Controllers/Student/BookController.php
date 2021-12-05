@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Student;
 
-use App\Book;
-use App\EducationalBase;
 use App\Http\Controllers\Controller;
 use App\Traits\OptionTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {

@@ -100,9 +100,9 @@ name: "Courses",
   },
   methods: {
     getCourses() {
-      Vue.http.get('api/admin/courses',)
+      Vue.http.get('api/dashboard/courses',)
           .then(response => {
-            this.courses = response.data
+            this.courses = response.data.courses;
           }).catch(error => {
             console.log(error)
           });

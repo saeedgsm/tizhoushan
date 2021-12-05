@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Course;
 use App\Http\Controllers\Controller;
 use App\TeacherCourse;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TeacherCourseController extends Controller

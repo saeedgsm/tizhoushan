@@ -9,7 +9,7 @@ use App\Http\Requests\StudentRequest;
 use App\InfoStudent;
 use App\RegisterClassStudent;
 use App\Traits\OptionTrait;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

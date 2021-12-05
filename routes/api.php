@@ -22,6 +22,10 @@ route::get('get-class-list/{base_id}','OptionController@getClassList');
 
 route::get('/azmoon/count/soal/{azmoon}','OptionController@azmoonCountSoal');
 
+Route::group(['namespace' => 'Dashboard\Api','prefix' => 'dashboard'],function (){
+    Route::apiResource('courses',\Education\CourseController::class,['as' => 'dashboard']);
+});
+
 /*
  * admin routes
  */
