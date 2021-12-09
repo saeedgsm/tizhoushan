@@ -96,14 +96,18 @@ export default {
         'course_title': this.course_title,
         'status': this.status,
       }
-      Vue.http.post('api/admin/course/store', field).then(response => {
+      axios.post('/api/dashboard/courses', field).then(response => {
+          let result= response.data;
            Swal.fire({
               position: 'top-center',
-              icon: 'success',
-              title: 'اطلاعات با موفقیت ثبت گردید!',
+              icon: result.class,
+              title: result.message,
               showConfirmButton: false,
               timer: 1500
           });
+           if (result.ex!=null){
+               console.log(result.ex);
+           }
         this.$router.push({name: 'Courses'});
       }).catch(error => {
         console.log(error);

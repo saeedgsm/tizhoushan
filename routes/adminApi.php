@@ -28,12 +28,6 @@ Route::group(['prefix' => 'field', 'namespace' => 'CustomizeField'], function ()
 
 //  courses
 Route::group(['namespace' => 'Course'], function () {
-    route::get('courses', 'CourseController@index');
-    route::post('course/store', 'CourseController@store');
-    route::get('course/{id}', 'CourseController@getCourse');
-    route::post('course/update/{id}', 'CourseController@update');
-    route::delete('course/delete/{course}', 'CourseController@destroy');
-
     route::get('course/classes/{course_id}', 'CourseClassController@courseClasses');
     route::post('course-class/store', 'CourseClassController@store');
     route::delete('course-class/delete/{id}', 'CourseClassController@destroy');

@@ -6809,14 +6809,19 @@ __webpack_require__.r(__webpack_exports__);
         'course_title': this.course_title,
         'status': this.status
       };
-      vue__WEBPACK_IMPORTED_MODULE_0___default.a.http.post('api/admin/course/store', field).then(function (response) {
+      axios.post('/api/dashboard/courses', field).then(function (response) {
+        var result = response.data;
         Swal.fire({
           position: 'top-center',
-          icon: 'success',
-          title: 'اطلاعات با موفقیت ثبت گردید!',
+          icon: result["class"],
+          title: result.message,
           showConfirmButton: false,
           timer: 1500
         });
+
+        if (result.ex != null) {
+          console.log(result.ex);
+        }
 
         _this.$router.push({
           name: 'Courses'
@@ -6943,8 +6948,8 @@ __webpack_require__.r(__webpack_exports__);
     getCourse: function getCourse(id) {
       var _this = this;
 
-      vue__WEBPACK_IMPORTED_MODULE_1___default.a.http.get("api/admin/course/" + id).then(function (response) {
-        var fields = response.body;
+      axios.get("/api/dashboard/courses/" + id).then(function (response) {
+        var fields = response.data;
         _this.course_title = fields.course_title;
         _this.status = fields.status;
       }, function (error) {
@@ -6958,14 +6963,19 @@ __webpack_require__.r(__webpack_exports__);
         'course_title': this.course_title,
         'status': this.status
       };
-      vue__WEBPACK_IMPORTED_MODULE_1___default.a.http.post('api/admin/course/update/' + this.$route.params.id, field).then(function (response) {
+      axios.put('/api/dashboard/courses/' + this.$route.params.id, field).then(function (response) {
+        var result = response.data;
         Swal.fire({
           position: 'top-center',
-          icon: 'success',
-          title: 'اطلاعات با موفقیت ویرایش گردید!',
+          icon: result["class"],
+          title: result.message,
           showConfirmButton: false,
           timer: 1500
         });
+
+        if (result.ex != null) {
+          console.log(result.ex);
+        }
 
         _this2.$router.push({
           name: 'Courses'
@@ -7088,26 +7098,83 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Courses",
   data: function data() {
     return {
+      page: 1,
+      search: '',
+      sort: {
+        order: 'asc',
+        column: 'created_at'
+      },
+      perPage: 10,
+      loading: true,
+      pagination: {
+        currentPage: 0,
+        perPage: 0,
+        total: 0,
+        totalPages: 0
+      },
       courses: {}
     };
   },
   methods: {
     getCourses: function getCourses() {
-      var _this = this;
+      var self = this;
+      axios.get('/api/dashboard/courses', {
+        params: {
+          page: self.page,
+          sort: self.sort,
+          search: self.search,
+          perPage: self.perPage
+        }
+      }).then(function (response) {
+        self.courses = response.data.courses;
+        self.pagination = response.data.pagination;
 
-      Vue.http.get('api/dashboard/courses').then(function (response) {
-        console.log(response);
-        _this.courses = response.data.courses;
-      })["catch"](function (error) {
-        console.log(error);
+        if (self.pagination.totalPages < self.pagination.currentPage) {
+          self.page = self.pagination.totalPages;
+          self.getCourses();
+        } else {
+          self.loading = false;
+        }
+      })["catch"](function () {
+        self.loading = false;
       });
     },
     destroyCourse: function destroyCourse(id, index) {
-      var _this2 = this;
+      var _this = this;
 
       Swal.fire({
         title: 'آیا مطمئن هستید؟',
@@ -7121,9 +7188,22 @@ __webpack_require__.r(__webpack_exports__);
         customClass: 'swal2-popup'
       }).then(function (result) {
         if (result.value) {
-          Vue.http["delete"]('api/admin/course/delete/' + id).then(function (response) {
+          axios["delete"]('/api/dashboard/courses/' + id).then(function (response) {
+            var result = response.data;
+            Swal.fire({
+              position: 'top-center',
+              icon: result["class"],
+              title: result.message,
+              showConfirmButton: false,
+              timer: 1500
+            });
+
+            if (result.ex != null) {
+              console.log(result.ex);
+            }
+
             if (response.status === 200) {
-              _this2.courses.splice(index, 1);
+              _this.courses.splice(index, 1);
             }
           }, function (error) {
             console.log(error);
@@ -7133,6 +7213,25 @@ __webpack_require__.r(__webpack_exports__);
           Swal.fire('کنسل شد', 'دوره مورد نظر هنوز سالم است', 'info');
         }
       });
+    },
+    changeSort: function changeSort() {
+      var self = this;
+
+      if (self.sort.order === 'asc') {
+        self.sort.order = 'desc';
+      } else if (self.sort.order === 'desc') {
+        self.sort.order = 'asc';
+      }
+
+      self.getCourses();
+    },
+    changePage: function changePage(page) {
+      var self = this;
+
+      if (page > 0 && page <= self.pagination.totalPages && page !== self.page) {
+        self.page = page;
+        self.getCourses();
+      }
     }
   },
   created: function created() {
@@ -11739,7 +11838,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n.invalid[data-v-1bd17c12] {\r\n  border: 1px solid red;\r\n  box-shadow: 0 0 5px red;\r\n  background-color: lightpink;\n}\r\n", ""]);
+exports.push([module.i, "\n.invalid[data-v-1bd17c12] {\n  border: 1px solid red;\n  box-shadow: 0 0 5px red;\n  background-color: lightpink;\n}\n", ""]);
 
 // exports
 
@@ -71562,127 +71661,223 @@ var render = function() {
                 _vm._v(" "),
                 _c("p", { staticClass: "card-title-desc" }),
                 _vm._v(" "),
-                _c("div", { staticClass: "table-responsive" }, [
-                  _c("table", { staticClass: "table mb-0" }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.courses, function(course, index) {
-                        return _c("tr", { key: course.id }, [
-                          _c("td", [_vm._v(_vm._s(course.course_title))]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  attrs: {
-                                    to: {
-                                      name: "CourseClasses",
-                                      params: { id: course.id }
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fa fa-book-medical"
-                                  }),
-                                  _vm._v(" کلاس ها ")
-                                ]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "btn btn-info btn-sm",
-                                  attrs: {
-                                    to: {
-                                      name: "VuetifyStudents",
-                                      params: { id: course.id }
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fa fa-book-medical"
-                                  }),
-                                  _vm._v(" دانش آموزان   ")
-                                ]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(
-                              _vm._s(course.status === 1 ? "فعال" : "غیر فعال")
-                            )
+                _c("div", { staticClass: "row col-md-12" }, [
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "search" } }, [
+                        _vm._v("عنوان دوره")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model.lazy",
+                            value: _vm.search,
+                            expression: "search",
+                            modifiers: { lazy: true }
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "search", type: "text" },
+                        domProps: { value: _vm.search },
+                        on: {
+                          change: [
+                            function($event) {
+                              _vm.search = $event.target.value
+                            },
+                            _vm.getCourses
+                          ]
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-3" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { attrs: { for: "sortBy" } }, [
+                        _vm._v("ترتیب")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.sort.column,
+                              expression: "sort.column"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { id: "sortBy" },
+                          on: {
+                            change: [
+                              function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.sort,
+                                  "column",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              },
+                              _vm.changeSort
+                            ]
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "course_title" } }, [
+                            _vm._v("نام")
                           ]),
                           _vm._v(" "),
-                          _c("td", [
+                          _c("option", { attrs: { value: "created_at" } }, [
+                            _vm._v("تاریخ ایجاد")
+                          ])
+                        ]
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-md-12" }, [
+                  _c("div", { staticClass: "table-responsive" }, [
+                    _c("table", { staticClass: "table mb-0" }, [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.courses, function(course, index) {
+                          return _c("tr", { key: course.id }, [
+                            _c("td", [_vm._v(_vm._s(course.course_title))]),
+                            _vm._v(" "),
                             _c(
-                              "div",
-                              { staticClass: "btn-group btn-sm" },
+                              "td",
                               [
                                 _c(
                                   "router-link",
                                   {
-                                    staticClass: "btn btn-warning",
+                                    staticClass: "btn btn-info btn-sm",
                                     attrs: {
                                       to: {
-                                        name: "CourseEdit",
+                                        name: "CourseClasses",
                                         params: { id: course.id }
-                                      },
-                                      title: "ویرایش "
-                                    }
-                                  },
-                                  [
-                                    _c("i", { staticClass: "ti-pencil-alt" }),
-                                    _vm._v(" "),
-                                    _c("b", [_vm._v("ویرایش")])
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass: "btn btn-danger btn-sm",
-                                    on: {
-                                      click: function($event) {
-                                        $event.preventDefault()
-                                        return _vm.destroyCourse(
-                                          course.id,
-                                          index
-                                        )
                                       }
                                     }
                                   },
                                   [
                                     _c("i", {
-                                      staticClass:
-                                        "dripicons dripicons-document-delete"
+                                      staticClass: "fa fa-book-medical"
                                     }),
-                                    _vm._v(" "),
-                                    _c("b", [_vm._v("حذف")])
+                                    _vm._v(
+                                      " کلاس ها\n                                                "
+                                    )
                                   ]
                                 )
                               ],
                               1
-                            )
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "btn btn-info btn-sm",
+                                    attrs: {
+                                      to: {
+                                        name: "VuetifyStudents",
+                                        params: { id: course.id }
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "fa fa-book-medical"
+                                    }),
+                                    _vm._v(
+                                      " دانش آموزان\n                                                "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  course.status === 1 ? "فعال" : "غیر فعال"
+                                )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "div",
+                                { staticClass: "btn-group btn-sm" },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "btn btn-warning",
+                                      attrs: {
+                                        to: {
+                                          name: "CourseEdit",
+                                          params: { id: course.id }
+                                        },
+                                        title: "ویرایش "
+                                      }
+                                    },
+                                    [
+                                      _c("i", { staticClass: "ti-pencil-alt" }),
+                                      _vm._v(" "),
+                                      _c("b", [_vm._v("ویرایش")])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass: "btn btn-danger btn-sm",
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.destroyCourse(
+                                            course.id,
+                                            index
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass:
+                                          "dripicons dripicons-document-delete"
+                                      }),
+                                      _vm._v(" "),
+                                      _c("b", [_vm._v("حذف")])
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
                           ])
-                        ])
-                      }),
-                      0
-                    )
+                        }),
+                        0
+                      )
+                    ])
                   ])
                 ])
               ])
@@ -98335,50 +98530,55 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-/* harmony import */ var vuelidate_src__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/src */ "./node_modules/vuelidate/src/index.js");
-/* harmony import */ var _services_routes_Router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/routes/Router */ "./resources/js/services/routes/Router.js");
-/* harmony import */ var _services_store_Store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/store/Store */ "./resources/js/services/store/Store.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var vue_pagination_2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-pagination-2 */ "./node_modules/vue-pagination-2/compiled/main.js");
-/* harmony import */ var vue_pagination_2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_pagination_2__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/* harmony import */ var _services_plugins_axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./services/plugins/axios */ "./resources/js/services/plugins/axios.js");
+/* harmony import */ var vuelidate_src__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuelidate/src */ "./node_modules/vuelidate/src/index.js");
+/* harmony import */ var _services_routes_Router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./services/routes/Router */ "./resources/js/services/routes/Router.js");
+/* harmony import */ var _services_store_Store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/store/Store */ "./resources/js/services/store/Store.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var vue_pagination_2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-pagination-2 */ "./node_modules/vue-pagination-2/compiled/main.js");
+/* harmony import */ var vue_pagination_2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_pagination_2__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_8__);
 
 
-Vue.use(VueResouce);
-Vue.use(vuelidate_src__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(VueResouce);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuelidate_src__WEBPACK_IMPORTED_MODULE_3__["default"]);
 
 
 
-window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a;
-var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.mixin({
+window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a;
+var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a.mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: true,
   onOpen: function onOpen(toast) {
-    toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.stopTimer);
-    toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.resumeTimer);
+    toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a.stopTimer);
+    toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a.resumeTimer);
   }
 });
 window.Toast = Toast;
 
-Vue.http.options.root = window.location.protocol + "//" + window.location.host + "/";
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.http.options.root = window.location.protocol + "//" + window.location.host + "/";
 var site_url = window.location.protocol + "//" + window.location.host + "/";
-Vue.use(vue_pagination_2__WEBPACK_IMPORTED_MODULE_5___default.a, site_url); //Import v-from
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_pagination_2__WEBPACK_IMPORTED_MODULE_7___default.a, site_url); //Import v-from
 
 
-window.Form = vform__WEBPACK_IMPORTED_MODULE_6__["Form"];
-Vue.component(vform__WEBPACK_IMPORTED_MODULE_6__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_6__["HasError"]);
-Vue.component(vform__WEBPACK_IMPORTED_MODULE_6__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_6__["AlertError"]);
-Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
-var app = new Vue({
+window.Form = vform__WEBPACK_IMPORTED_MODULE_8__["Form"];
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_8__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_8__["HasError"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component(vform__WEBPACK_IMPORTED_MODULE_8__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_8__["AlertError"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
+var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  store: _services_store_Store__WEBPACK_IMPORTED_MODULE_3__["store"],
-  router: _services_routes_Router__WEBPACK_IMPORTED_MODULE_2__["default"]
+  store: _services_store_Store__WEBPACK_IMPORTED_MODULE_5__["store"],
+  router: _services_routes_Router__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (app);
 
@@ -98396,15 +98596,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_resource__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-resource */ "./node_modules/vue-resource/dist/vue-resource.esm.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-
 
 
 window.Vue = vue__WEBPACK_IMPORTED_MODULE_0___default.a;
 window.VueResouce = vue_resource__WEBPACK_IMPORTED_MODULE_1__["default"];
-window.axios = axios__WEBPACK_IMPORTED_MODULE_2___default.a;
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
@@ -101755,6 +101950,77 @@ var Paginate = /*#__PURE__*/function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (Paginate);
+
+/***/ }),
+
+/***/ "./resources/js/services/plugins/axios.js":
+/*!************************************************!*\
+  !*** ./resources/js/services/plugins/axios.js ***!
+  \************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.withCredentials = true;
+axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.headers.common['X-CSRF-TOKEN'] = document.head.querySelector('meta[name="csrf-token"]').content;
+
+if (window.app.url) {
+  axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.baseURL = window.app.url;
+}
+
+if (localStorage.getItem('token')) {// axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token');
+}
+
+axios__WEBPACK_IMPORTED_MODULE_1___default.a.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
+  if (error.response.status === 401) {
+    // If error 401 redirect to login
+    window.location.href = window.app.url + '/auth/login';
+    delete window.axios.defaults.headers.common.Authorization;
+    localStorage.removeItem('token');
+    throw new Error('Unauthorized');
+  } else if (error.response.data.message) {
+    // If it is a notification error, display message
+    // Ladda.stopAll();
+    var message = error.response.data.message;
+
+    if (error.response.data.errors) {
+      message = '<ul class="text-left">';
+      Object.keys(error.response.data.errors).forEach(function (element) {
+        error.response.data.errors[element].forEach(function (item) {
+          message += '<li>' + item + '</li>';
+        });
+      });
+      message += '</ul>';
+    }
+
+    vue__WEBPACK_IMPORTED_MODULE_0___default.a.notify({
+      title: 'Error',
+      text: message,
+      type: 'error'
+    });
+    throw new Error(error.response.data.message);
+  } else {
+    // If it is an uncontrolled error, display http status
+    Ladda.stopAll();
+    vue__WEBPACK_IMPORTED_MODULE_0___default.a.notify({
+      title: 'Error ' + error.response.status,
+      text: error.response.statusText,
+      type: 'error'
+    });
+    throw new Error(error);
+  }
+});
+window.axios = axios__WEBPACK_IMPORTED_MODULE_1___default.a;
 
 /***/ }),
 

@@ -32,6 +32,7 @@
         "dom-to-image": "^2.6.0",
         "html-to-image": "^1.6.2",
         "jspdf": "^2.3.1",
+        "ladda": "^2.0.3",
         "laravel-vue-pagination": "^2.3.1",
         "moment": "^2.29.1",
         "v-page": "^2.0.9",

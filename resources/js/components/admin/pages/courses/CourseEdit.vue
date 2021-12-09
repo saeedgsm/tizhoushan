@@ -93,9 +93,8 @@ name: "CourseEdit",
 
   methods: {
     getCourse(id) {
-      Vue.http.get("api/admin/course/" + id).then(
-          (response) => {
-            let fields = response.body;
+      axios.get("/api/dashboard/courses/" + id).then(response => {
+            let fields = response.data;
             this.course_title = fields.course_title;
             this.status = fields.status;
           },
@@ -109,14 +108,18 @@ name: "CourseEdit",
         'course_title': this.course_title,
         'status': this.status,
       }
-      Vue.http.post('api/admin/course/update/' + this.$route.params.id, field).then(response => {
+      axios.put('/api/dashboard/courses/' + this.$route.params.id, field).then(response => {
+          let result= response.data;
            Swal.fire({
               position: 'top-center',
-              icon: 'success',
-              title: 'اطلاعات با موفقیت ویرایش گردید!',
+               icon: result.class,
+               title: result.message,
               showConfirmButton: false,
               timer: 1500
           });
+          if (result.ex!=null){
+              console.log(result.ex);
+          }
         this.$router.push({name: 'Courses'});
       }, error => {
         console.log(error);

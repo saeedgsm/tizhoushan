@@ -1,5 +1,6 @@
+import Vue from 'vue';
 import './bootstrap';
-
+import './services/plugins/axios';
 import Vuelidate from "vuelidate/src";
 Vue.use(VueResouce);
 Vue.use(Vuelidate);

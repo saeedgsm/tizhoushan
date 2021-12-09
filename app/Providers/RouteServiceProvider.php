@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
+     //   $this->mapApiRoutes();
 
         $this->mapWebRoutes();
 
@@ -63,6 +63,10 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
 
+        Route::prefix('api')
+            ->middleware('api')
+            ->group(base_path('routes/dashboardApi.php'));
+
         // Admin Routes
         Route::middleware(['web','auth','checkAdmin'])
             ->prefix('admin')
@@ -73,27 +77,6 @@ class RouteServiceProvider extends ServiceProvider
         Route::namespace($this->namespace.'\\Admin\Api')
             ->prefix('api/admin')
             ->group(base_path('routes/adminApi.php'));
-
-        // Teacher Routes
-        Route::middleware(['web','auth','checkTeacher'])
-            ->prefix('teacher')
-            ->name('teacher.')
-            ->namespace($this->namespace.'\\Teacher')
-            ->group(base_path('routes/teacher.php'));
-
-        // Agencies Routes
-        Route::middleware(['web','auth','checkAgency'])
-            ->prefix('agency')
-            ->name('agency.')
-            ->namespace($this->namespace.'\\Agency')
-            ->group(base_path('routes/agency.php'));
-
-        // Offices Routes
-        Route::middleware(['web','auth','checkOffice'])
-            ->prefix('office')
-            ->name('office.')
-            ->namespace($this->namespace.'\\Office')
-            ->group(base_path('routes/office.php'));
 
         // students Routes
         Route::middleware(['web','auth','checkStudent'])
