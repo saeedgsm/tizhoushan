@@ -110,7 +110,6 @@
                         <li><a href="{{ route('admin.tickets.index') }}">تیکت ها</a></li>
                     </ul>
                 </li>
-                @can('role-edit')
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <div class="d-inline-block icons-sm mr-1"><i
@@ -120,12 +119,12 @@
                         <ul class="sub-menu" aria-expanded="false">
                             <li><router-link :to="{name : 'TariffBases'}">تعرفه ثبت نام پایه ها</router-link></li>
                             <li><router-link :to="{name : 'SMSGroupClasses'}">پیامک گروهی</router-link></li>
+                            <li><router-link :to="{name : 'Roles'}">نوع کاربری</router-link></li>
                             <li><a href="{{ route('admin.setting.all') }}">تنظیمات</a></li>
-                            <li><a href="{{ route('admin.roles.index') }}">سطح دسترسی</a></li>
                             <li><a href="{{ route('admin.defaultCovers.index') }}">کاور پیش فرض</a></li>
                         </ul>
                     </li>
-                @endcan
+
 
             </ul>
 

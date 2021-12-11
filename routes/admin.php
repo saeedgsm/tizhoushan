@@ -16,10 +16,6 @@ route::resource('students', 'InfoStudentController');
 route::get('student/profile/unchecked', 'InfoStudentController@uncheckedProfiles')->name('student.profile.unchecked');
 route::get('student/profile/submit/{student}', 'InfoStudentController@submitProfiles')->name('student.profile.submit');
 
-// students
-//route::resource('classStudents', 'ClassStudentController');
-
-// teachers
 route::resource('teachers', 'InfoTeacherController');
 
 // cadres
@@ -60,14 +56,7 @@ Route::resource('ticketCategories', 'TicketCategoryController');
 Route::resource('tickets', 'TicketController');
 
 route::resource('custom/fields', 'CustomFieldController');
-/*route::get('custom/fields','CustomFieldController@index')->name('custom.fields.index');
-route::get('custom/field/create','CustomFieldController@create')->name('custom.fields.create');
-route::post('custom/field/store','CustomFieldController@store')->name('custom.fields.store');*/
 
-
-Route::resource('roles', 'RoleController');
-//Route::resource('users', UserController::class);
-//Route::resource('products', ProductController::class);
 
 route::resource('defaultCovers', 'DefaultCoverController');
 route::resource('exclusives', 'Azmoon\AzmoonExclusiveController');

@@ -31,11 +31,14 @@ import ImportExcelStudents from "../../components/admin/pages/students/ImportExc
 import MomentReport from "../../components/admin/pages/azmoon/azmoons/MomentReport";
 import Students from "../../components/admin/pages/students/Students";
 import Books from "../../components/admin/pages/books/Books";
+import Roles from "../../components/admin/pages/setting/roles/Roles";
 
 const allUrl = [
     {path:'/admin',component:Loader,redirect:'/admin/dashboard',
         children:[
             {path:'dashboard',name:'Dashboard',component:Dashboard},
+
+            {path:'roles',name:'Roles',component:Roles},
             {path:'Bases-all',name:'AllBases',component:AllBases},
             {path:'base-classes/:id',name:'BaseClasses',component:BaseClasses},
             {path:'fields',name:'Fields',component:Fields},
