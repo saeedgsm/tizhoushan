@@ -9,6 +9,8 @@ use App\InfoStudent;
 use App\RegisterClassStudent;
 use App\ShopCart;
 use App\TeacherCourse;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -58,27 +60,27 @@ class User extends Authenticatable
         'phone_verified_at' => 'datetime',
     ];
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return $this->level == 'admin';
     }
 
-    public function isTeacher()
+    public function isTeacher(): bool
     {
         return $this->level == 'teacher';
     }
 
-    public function isAgency()
+    public function isAgency(): bool
     {
         return $this->level == 'agency';
     }
 
-    public function isOffice()
+    public function isOffice(): bool
     {
         return $this->level === 'office';
     }
 
-    public function isStudent()
+    public function isStudent(): bool
     {
         return $this->level === 'student';
     }
@@ -91,18 +93,17 @@ class User extends Authenticatable
         return $img['url'];
     }
 
-    public function student()
+    public function student(): HasOne
     {
         return $this->hasOne(InfoStudent::class,'user_id');
     }
 
-    public function studentBaseClass()
+    public function studentBaseClass(): HasOne
     {
         return $this->hasOne(RegisterClassStudent::class,'user_id');
     }
 
-
-    public function teacherCourses()
+    public function teacherCourses(): HasMany
     {
         return $this->hasMany(TeacherCourse::class,'user_id');
     }
@@ -114,22 +115,22 @@ class User extends Authenticatable
             ->orWhere('last_name','LIKE',"%{$q}%");
     }
 
-    public function activeAccountCodes()
+    public function activeAccountCodes(): HasMany
     {
         return $this->hasMany(ActiveAccountCode::class);
     }
 
-    public function cadre()
+    public function cadre(): HasOne
     {
         return $this->hasOne(InfoCadre::class);
     }
 
-    public function shopCarts()
+    public function shopCarts(): HasMany
     {
         return $this->hasMany(ShopCart::class,'user_id');
     }
 
-    public function azmoonPayments()
+    public function azmoonPayments(): HasMany
     {
         return $this->hasMany(AzmoonPayment::class,'user_id');
     }

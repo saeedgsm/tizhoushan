@@ -1,5 +1,8 @@
 <?php
 
+
+use Illuminate\Support\Facades\Route;
+
 route::get('get-states-list','OptionController@getStateList');
 route::get('get-city-list/{state_id}','OptionController@getCityList');
 route::get('get-bases-list','OptionController@getBasesList');

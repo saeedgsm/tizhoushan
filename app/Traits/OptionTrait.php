@@ -4,6 +4,7 @@
 namespace App\Traits;
 
 use App\CustomField;
+use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -29,7 +30,7 @@ trait OptionTrait
             for ($i = 0; $i < $length; $i++) {
                 $randomString .= $characters[rand(0, $charactersLength - 1)];
             }
-            $check =\App\User::where('private_code',$randomString)->get();
+            $check =User::where('private_code',$randomString)->get();
 
         }while(!$check->isEmpty());
         return $randomString;
@@ -44,7 +45,7 @@ trait OptionTrait
             for ($i = 0; $i < 6; $i++) {
                 $randomString .= $characters[rand(0, $charactersLength - 1)];
             }
-            $check =\App\User::where('usercode',$randomString)->get();
+            $check =User::where('usercode',$randomString)->get();
 
         }while(!$check->isEmpty());
         return $randomString;
